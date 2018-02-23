@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset ="utf-8" />
+	<title>Nadim's Website </title>
+	<link rel="stylesheet" href="main.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
+
+<body>
+
+
+
+
+<script>
+
+
+	$.ajax({
+	  url: "/threads"
+	}).done(function(data) {
+	  console.log( "Fetched /threads", data );
+	});
+
+</script>
+
+</body>
+</html>

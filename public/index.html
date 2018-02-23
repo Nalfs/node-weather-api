@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Weather</title>
+
+	<style>
+		#info {
+			font-size: 2em;
+			padding: 1em;
+			margin-top: 1em;
+			border: #389 2px solid;
+		}
+	</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
+<body>
+	<h1>Är det kallt?</h1>
+	Stad: <input id="location" placeholder="Välj stad">
+	<button type="button" id="feel">Känn efter</button>
+
+	<div id="info"></div>
+
+	<script>
+		var API_KEY = '47a50d91ea87883452d5dbf31851512f';
+
+		var inputLocation = document.getElementById('location');
+		var buttonFeel = document.getElementById('feel');
+		var info = document.getElementById('info');
+
+
+		function getWeatherForCity(city) {
+			info.innerHTML = 'Känner efter...';
+
+			$.ajax({
+				url: 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&APPID=' + API_KEY
+			}).done(function (data) {
+				var temp = data.main.temp;
+				var message = '';
+
+				if (temp > 20) {
+					message = 'Nae';
+				}
+				else if (temp > 10) {
+					message = 'Aa, kyligt';
+				}
+				else if (temp > 0) {
+					message = 'Ja';
+				}
+				else if (temp > -5) {
+					message = 'Somfan';
+				}
+				else if (temp > -15) {
+					message = 'Ja satan';
+				}
+				else if (temp > -30) {
+					message = 'Håll dig inomhus';
+				}
+				else {
+					message = '!!!!!!!11111111111';
+				}
+
+				info.innerHTML = message + ' (' + temp + 'C)';
+
+			});
+		}
+
+		buttonFeel.addEventListener('click', function () {
+			getWeatherForCity(inputLocation.value);
+		});
+
+		inputLocation.addEventListener('keydown', function (ev) {
+			if (ev.keyCode === 13) {
+				getWeatherForCity(this.value);
+
+				ev.preventDefault();
+			}
+		})
+	</script>
+</body>
+</html>
